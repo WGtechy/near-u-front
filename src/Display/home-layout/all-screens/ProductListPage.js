@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getProductsBySlug,
   displayAvailableSellers,
-  globalProductStoreInfo,
+  selectedGlobalStoreItem,
 } from "../../../redux/actions";
 import { GlobalProductStoreInfoCanvas } from "../../../comp-files";
 import { sellers as sellersFromDemoApi } from "../../../demoApi";
@@ -15,31 +15,29 @@ import MainLayout from "../MainLayout";
 
 const ProductListPage = (props) => {
   const dispatch = useDispatch();
+  const [canvas, setCanvas] = useState(false)
+  const [productInfo, setProductInfo] = useState({})
   const selector = useSelector((state) => {
     return {
       product: state.globalProduct.globalProducts,
-      productInfo: state.globalProductStoreInfo,
-      availableSellers: state.availableSellers,
     };
   });
 
-  const data = window.localStorage.getItem("globalProductStoreInfo");
   useEffect(() => {
     const { slug } = props.match.params;
     dispatch(getProductsBySlug(slug));
-    // if(selector.productInfo.display) return dispatch(globalProductStoreInfo(data));
   }, [dispatch, props ]);
 
   const open = (product, display) => {
-    // dispatch(displayAvailableSellers(sellers, true)); // This is a demoApi
-    console.log(data)
-    dispatch(globalProductStoreInfo(product));
+    dispatch(selectedGlobalStoreItem(product));
+    setProductInfo(product)
+    setCanvas(display)
   };
 
   return (
     <MainLayout>
-      <GlobalProductStoreInfoCanvas productInfo={selector.productInfo} />
-      <SellersCanvas availableSellers={selector.availableSellers} />
+      <GlobalProductStoreInfoCanvas  show={canvas} hide={setCanvas} productInfo={productInfo} setProductInfo={setProductInfo} />
+      <SellersCanvas show={canvas} hide={setCanvas} />
       <div className="product__display">
         {selector.product.map((product, i) => (
           <div
