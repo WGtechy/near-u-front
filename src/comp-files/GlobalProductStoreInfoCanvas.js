@@ -8,38 +8,51 @@ import {
 } from "../redux/actions";
 import { IoIosClose } from "react-icons/io";
 import { sellers } from "../demoApi";
+import { generatePublicUrl } from "../utilities-config/urlConfig";
 
 const GlobalProductStoreInfoCanvas = ({
-  productInfo: { display, product, seller, loading, error },
+  show,
+  hide,
+  productInfo,
+  setProductInfo,
 }) => {
   const dispatch = useDispatch();
 
   const close = () => {
-    dispatch(displayAvailableSellers([], false));
-    dispatch(globalProductStoreInfo({}, {}, false));
-    window.localStorage.clear("globalProductInfo");
+    hide(false);
   };
 
   return (
     <div
-      className={
-        display ? "product__info__canvas open" : "product__info__canvas"
-      }
+      className={show ? "product__info__canvas open" : "product__info__canvas"}
     >
-      <div className="heading"></div>
+      <div className="heading">
+        <IoIosClose
+          className="seller__body__heading__icons__cancel"
+          onClick={close}
+          size={40}
+        />
+      </div>
       <div className="body">
-        <div className= "swiper-container">
+        {/* globalImage  */}
+        <div className="swiper-container">
           <div className="swiper-wrapper">
-            <div className="swiper-slider" >
-              <div className="number"> 01</div>
+            <div className="swiper-slider">
+              {productInfo.globalProductImage &&
+                productInfo.globalProductImage.length > 0 &&
+                productInfo.globalProductImage.map((item, index) => (
+                  <img src={ generatePublicUrl(item.img) } key={index} alt={productInfo.productName}/>
+                ))}
             </div>
           </div>
         </div>
-        {/* {
-            product && <div className="product__info">
-            
-        </div>
-        } */}
+
+        {/* Here is the global product information */}
+        {productInfo && (
+          <div className="product__info">
+            <div></div>
+          </div>
+        )}
       </div>
     </div>
   );
