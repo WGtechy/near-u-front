@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { getAllCategory } from "./redux/actions";
 import { LightTheme, DarkTheme, OrangeTheme, GlobalStyles } from "./themes.js";
 import PrivateRoute from "./comp-files/hoc/PrivateRoute";
+import { PageLoading } from "./comp-files/hoc/Loading";
 
 const App = () => {
   const [theme, setTheme] = useState("light");
@@ -21,11 +22,7 @@ const App = () => {
     import("./Display/home-layout/all-screens/ProductListPage")
   );
 
-  const loading = (
-    <div className="pt-3 text-center">
-      <div className="sk-spinner sk-spinner-pulse">loading spinner</div>
-    </div>
-  );
+
 
   useEffect(() => {
     dispatch(getAllCategory());
@@ -33,7 +30,7 @@ const App = () => {
 
   return (
     <Router>
-      <React.Suspense fallback={loading}>
+      <React.Suspense fallback={PageLoading}>
         <ThemeProvider
           theme={
             theme === "light"

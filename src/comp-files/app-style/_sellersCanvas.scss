@@ -2,7 +2,7 @@
 
 .sellers__canvas {
   display: flex;
-  width: 35%;
+  width: 36%;
   transform: translateX(150%);
   transition: transform 0.4s ease-in;
   height: 100vh;
@@ -20,7 +20,7 @@
     transition: transform 0.9s ease-in;   
   }
 
-  .sellers__body {
+  .contain {
     @include sideBarContent(100%);
 
     &__heading .heading__bar{
@@ -43,7 +43,7 @@
 
     &__content {
       margin: 0.1rem 0;
-      padding: 1rem;
+      padding: .3rem .5rem;
       &__profile {
         @include profileDetails(0.9rem);
         position: relative;
@@ -64,7 +64,7 @@
 
       &__product {
         // height: 100px;
-        .image__container {
+        .image__contain {
           display: flex;
           flex-direction: row;
           overflow-y: hidden;
@@ -76,7 +76,7 @@
           }
         }        
         span {
-          @include line-clamp(1);
+          @include line-clamp(2);
           font-size: 0.8rem;
         }
 

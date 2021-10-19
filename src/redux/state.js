@@ -44,16 +44,13 @@ const initState = {
     message: null,
   },
 
-  availableSellers: {
+  selectedSellerInfo: {
     data: [],
-    display: false,
     loading: false,
   },
 
-  globalProductStoreInfo: {
-    product: {},
-    clickedSeller: {},
-    display: false,
+  selectedGlobalStoreItem: {
+    data: [],
     loading: false,
     error: null
   },

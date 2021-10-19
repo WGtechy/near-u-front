@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import {
-  displayAvailableSellersReducer,
-  displayGlobalProductInfoReducer,
+  selectedGlobalStoreSellerReducer,
+  selectedGlobalStoreItemReducer,
   sidebarReducer,
   sideMenuContentReducer,
   topMenuDataReducer,
@@ -14,11 +14,11 @@ import {
 } from "../reducers";
 
 const rootReducer = combineReducers({
-  globalProductStoreInfo: displayGlobalProductInfoReducer,
+  selectedGlobalItem: selectedGlobalStoreItemReducer,
+  selectedSeller: selectedGlobalStoreSellerReducer,
   category: categoryReducer,
   video: videoReducer,
   globalProduct: globalProductReducer,
-  availableSellers: displayAvailableSellersReducer,
   sidebar: sidebarReducer,
   sideMenuContent: sideMenuContentReducer,
   topMenuData: topMenuDataReducer,

@@ -8,116 +8,105 @@ import {
   IoIosInformationCircleOutline,
   IoIosShareAlt,
 } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../comp-files/app-style/_sellersCanvas.scss";
-import { displayAvailableSellers, globalProductStoreInfo } from "../redux/actions";
+import {
+  displayAvailableSellers,
+  globalProductStoreInfo,
+} from "../redux/actions";
+import { ContentLoading, DataLoading } from "./hoc/Loading";
 
-const SellersCanvas = ({availableSellers: {data, display}}) => {
-  // const {info, display} = window.localStorage.getItem("displayAllAvailabeSellers")
+const SellersCanvas = ({ show, hide }) => {
   const dispatch = useDispatch();
+  const sellers = useSelector((state) => state.selectedGlobalItem);
+
   const close = () => {
-    // dispatch(displayAvailableSellers([], false));
-    // dispatch(globalProductStoreInfo({}, {}, false));
-    window.localStorage.clear("globalProductInfo");
-    window.localStorage.clear("displayAvailableSellers");
+    hide(false);
   };
-  const sellerInfoDisplay =(clickedSeller) => {
-    const {product} = window.localStorage.getItem("globalProductStoreInfo")
-    let data = {product, clickedSeller, display: true};
-    dispatch(globalProductStoreInfo(data));
-  }
+
+  const icons = [
+    {
+      name: "Basket",
+      icon: IoIosBasket,
+      size: 30
+    },
+    {
+      name: "Quick pay",
+      icon: IoIosFlame,
+      size: 25
+    },
+    
+    {
+      name: "Save",
+      icon: IoIosBookmark,
+      size: 25
+    },
+    
+    {
+      name: "Share",
+      icon: IoIosShareAlt,
+      size: 25
+    }
+  ];
+
+  const sellerInfoDisplay = (clickedSeller) => {};
   return (
     <div
-      className={
-        display ? "sellers__canvas open" : "sellers__canvas"
-      }
+      className={show ? "sellers__canvas open" : "sellers__canvas"}
     >
-      <div className="sellers__body">
-        <div className="sellers__body__heading">
+      <div className="contain">
+        <div className="contain__heading">
           <div className="heading__bar">
             <IoIosClose
-              className="seller__body__heading__icons__cancel"
+              className="icons icons__cancel"
               onClick={close}
               size={40}
             />
           </div>
-          <div className="sellers__body__heading__location">
+          <div className="contain__heading__location">
             <input type="search" defaultValue="Ikeja" />
           </div>
-          <h3>
+          <h4>
             <span>10 </span>Sellers in your location
-          </h3>
+          </h4>
         </div>
-
-        {data.map((item, i) => (
-          <div 
-          className="sellers__body__content" 
-          key={i}
-          onClick={()=> sellerInfoDisplay(item)}
-          >
-            <div className="sellers__body__content__profile">
-              <img
-                src={item.image}
-                className="seller__detail__image"
-                alt={item.username}
-              />
-              <span>{item.username}</span>
-              {/* information that comes with buying the product */}
-              <IoIosInformationCircleOutline
-                className="sellers__body__content__profile__information cursor"
-                size={20}
-              />
-            </div>
-            <div className="sellers__body__content__product">
-              <div className="image__container">
-                {item.productImage.length > 0
-                  ? item.productImage.map((imgItem, i) => (
-                      <img src={imgItem} alt="product images" key={i} />
-                    ))
-                  : item.globalProductImage.map((parentImage, i) => (
-                      <img src={parentImage} alt="pic" key={i} />
-                    ))}
-              </div>
-              <span>{item.productInstruction}</span>
-              <div className="product__price">
-                <div>
-                  <span className="currency"> {item.price[0].currency} </span>
-                  <span className="figure">{item.price[0].figure}</span>
-                  <small className="decima">.00</small>
-                  <IoIosArrowDropdown
-                    className="sellers__product__price__currency"
-                    size={20}
-                  />
-                </div>
-                <div>{item.productCount} </div>
-              </div>
-
-              {/* Fairly used or new. This will be available for electronics products */}
-              <div className="sellers__body__content__product__icons">
-                <div>
-                  <IoIosBasket className="cursor" size={25} />
-                  <span>Basket</span>
-                </div>
-                <div>
-                  <IoIosShareAlt className="cursor" size={25} />
-                  <span>Share</span>
-                </div>
-                <div>
-                  <IoIosFlame
-                    className="cursor"
-                    style={{ color: "#b50303" }}
-                    size={25}
-                  />
-                  <span>Quick pay</span>
-                </div>
-                <div>
-                  <IoIosBookmark className="cursor" size={25} />
-                  <span>Save</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+        
+          {sellers.loading
+            ? DataLoading("sellers")
+            : sellers.data.map((item, index) => (
+              <div className="contain__content" key={index}>
+                  <div className="contain__content__profile">
+                    <img src="" alt="" />
+                    <span>seller name</span>
+                    <span className="contain__content__profile__information">
+                      <IoIosInformationCircleOutline
+                        className="icons icons__information"
+                        size={20}
+                      />
+                    </span>
+                  </div>
+                  <div className="contain__content__product">
+                    <div className="image__contain">
+                      <img src="" alt="" />
+                    </div>
+                    <span>Product name</span>
+                    <div className="product__price">
+                      <div>
+                        <span className="currency">$</span>
+                        <span className="figure">200</span>
+                      </div>
+                    </div>
+                    <div className="contain__content__product__icons">
+                    {icons.map((item, index) =>
+                      <div key={index} className="icons" size={item.size}>
+                      <item.icon />
+                        <span>{item.name}</span>
+                      </div>
+                    )}
+                    </div>
+                  </div>
+                  </div>
+              ))}
       </div>
     </div>
   );

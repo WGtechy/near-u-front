@@ -75,7 +75,7 @@ body {
   @mixin sideBarContent($width) {
     
     margin-top: 2.5rem;
-    padding: 0rem 1rem;
+    padding: 0rem;
     width:  $width;
     position: fixed;
     padding-bottom: 4rem;

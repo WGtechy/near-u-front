@@ -1,21 +1,22 @@
 import initState from "../../state";
 import { canvas } from "../../constants";
 
-const displayAvailableSellersReducer = (
-  state = initState.availableSellers,
+const selectedGlobalStoreSellerReducer = (
+  state = initState.selectedSellerInfo,
   action
 ) => {
   switch (action.type) {
-    case canvas.SELLERS_CANVAS_REQUEST:
+   
+
+    case canvas.SELECTED_SELLER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case canvas.SELLERS_CANVAS_SWITCH: //Here the action is directly in this document, not in an action file like most documents
+    case canvas.SELECTED_SELLER_SUCCESS: //Here the action is directly in this document, not in an action file like most documents
       return {
         ...state,
-        data: action.payload.data,
-        display: action.payload.display,
+        info: action.payload.data,
         loading: false,
       };
     default:
@@ -31,17 +32,20 @@ const selectedGlobalStoreItemReducer =( state = initState.selectedGlobalStoreIte
         loading: true,
         error: null,
       }
-      payload: {productInfo: product, availableSellers: response.data.products }
-
     
     case canvas.GLOBAL_PRODUCT_CANVAS_SUCCESS : 
     return {
       ...state,
       loading: false,
-      product: action.payload.product,
-      clickedSeller: action.payload.clickedSeller,
-      display: action.payload.display
+      data: action.payload.data,
     }
+
+    case canvas.GLOBAL_PRODUCT_CANVAS_FAIL :
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
+      }
 
     default: return state;
   }
@@ -104,9 +108,9 @@ const topMenuDataReducer = (state = initState.topMenuData, action) => {
 };
 
 export {
-  displayAvailableSellersReducer,
+  selectedGlobalStoreSellerReducer,
+  selectedGlobalStoreItemReducer,
   sidebarReducer,
   sideMenuContentReducer,
   topMenuDataReducer,
-  displayGlobalProductInfoReducer,
 };

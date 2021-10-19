@@ -17,6 +17,7 @@ const color = {
   iconTransitionWhitePrimary: " #ffffff 0.9s ease-in-out",
   whiteGrayBlockedContent: "#2624245c",
   blackGrayBlockedContent: "#2624245c",
+  whiteThird: "#f1eded",// create for other colors too
 
 
 };
@@ -38,6 +39,7 @@ const LightTheme = {
   icontTransition: color.iconTransitionWhitePrimary,
   productCardShadow: color.whiteBoxShadowSecondary,
   topMenuBlockedContent: color.whiteGrayBlockedContent,
+  sellersCanvasItems: color.whiteThird,
 };
 
 const OrangeTheme =  {
@@ -201,9 +203,7 @@ a {
     border-radius: 6px
 }
 
-.sellers__body__content {
-    box-shadow: 2px 6px 1em ${props => props.theme.sidebarBackground};
- }
+
 
 .top__trending__item__image {
     background-color: ${props => props.theme.fontColor};
@@ -223,9 +223,14 @@ a {
     box-shadow: 2px 6px 1em ${props => props.theme.sidebarBackground}
 }
 
-.video__canvas__left__content, .sellers__body {
+.sellers__canvas.open {
     color:  ${props => props.theme.fontColor};
-    background: ${props => props.theme.body};
+    background: ${props => props.theme.sidebarBackground};
+    box-shadow: 2px 6px 1em ${props => props.theme.sidebarBackground};
+}
+
+.sellers__canvas .contain__content {
+    background: ${props => props.theme.sellersCanvasItems}
 }
 
 

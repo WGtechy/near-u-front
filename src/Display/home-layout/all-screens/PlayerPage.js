@@ -33,8 +33,8 @@ const PlayerPage = (props) => {
 
   const getData = () => {
     // dispatch(getAmbasadorPromotions())
-    dispatch(globalProductStoreInfo({}, {}, true))
-    dispatch(displayAvailableSellers(sellers, true));
+    // dispatch(globalProductStoreInfo({}, {}, true))
+    // dispatch(displayAvailableSellers(sellers, true));
   };
 
   const handleToggleBookmark = () => setBookmark((value) => !value);

@@ -32,6 +32,7 @@ const ProductListPage = (props) => {
     dispatch(selectedGlobalStoreItem(product));
     setProductInfo(product)
     setCanvas(display)
+    console.log(product)
   };
 
   return (
@@ -52,7 +53,7 @@ const ProductListPage = (props) => {
                     ? generatePublicUrl(product.globalProductImage[0].img)
                     : "/logo.png"
                 }
-                alt=""
+                alt={product.productName}
               />
             </div>
             <div className="product__display__container__info">
