@@ -11,6 +11,7 @@ import "../../../comp-files/app-style/_productListPage.scss";
 
 import { generatePublicUrl } from "../../../utilities-config/urlConfig";
 import SellersCanvas from "../../../comp-files/SellersCanvas";
+import MainLayout from "../MainLayout";
 
 const ProductListPage = (props) => {
   const dispatch = useDispatch();
@@ -27,16 +28,16 @@ const ProductListPage = (props) => {
     const { slug } = props.match.params;
     dispatch(getProductsBySlug(slug));
     // if(selector.productInfo.display) return dispatch(globalProductStoreInfo(data));
-  }, [dispatch, props, selector, data]);
+  }, [dispatch, props ]);
 
-  const open = (product, sellers, display) => {
-    dispatch(displayAvailableSellers(sellers, true)); // This is a demoApi
-    let data = { product, clickedSeller: {}, display };
-    dispatch(globalProductStoreInfo(data));
+  const open = (product, display) => {
+    // dispatch(displayAvailableSellers(sellers, true)); // This is a demoApi
+    console.log(data)
+    dispatch(globalProductStoreInfo(product));
   };
 
   return (
-    <>
+    <MainLayout>
       <GlobalProductStoreInfoCanvas productInfo={selector.productInfo} />
       <SellersCanvas availableSellers={selector.availableSellers} />
       <div className="product__display">
@@ -44,7 +45,7 @@ const ProductListPage = (props) => {
           <div
             className="product__display__container"
             key={i}
-            onClick={() => open(product, sellersFromDemoApi, true)}
+            onClick={() => open(product, true)}
           >
             <div className="product__display__container__image">
               <img
@@ -67,7 +68,7 @@ const ProductListPage = (props) => {
           </div>
         ))}
       </div>
-    </>
+    </MainLayout>
   );
 };
 

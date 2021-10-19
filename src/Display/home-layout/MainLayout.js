@@ -44,7 +44,7 @@ const MainLayout = (props) => {
       />
       <Sidebar activeElement={activeElement} handleNavItem={handleNavItem} />
       <div className="layoutOne__container">
-        <PrivateRouting />
+        {props.children}
       </div>
       <MobileFooterMenu className="mobileView" />
     </>

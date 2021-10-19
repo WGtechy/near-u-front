@@ -23,15 +23,16 @@ const displayAvailableSellersReducer = (
   }
 };
 
-const displayGlobalProductInfoReducer =( state = initState.globalProductStoreInfo, action) => {
+const selectedGlobalStoreItemReducer =( state = initState.selectedGlobalStoreItem, action) => {
   switch(action.type){
     case canvas.GLOBAL_PRODUCT_CANVAS_REQUEST :
       return {
         ...state,
         loading: true,
         error: null,
-        display: action.payload.display
       }
+      payload: {productInfo: product, availableSellers: response.data.products }
+
     
     case canvas.GLOBAL_PRODUCT_CANVAS_SUCCESS : 
     return {

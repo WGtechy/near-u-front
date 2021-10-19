@@ -1,3 +1,4 @@
+import Axios from "../../../utilities-config/axios";
 import { canvas } from "../../constants";
 
 const displayAvailableSellers = (data, display) =>  (dispatchAction) => { // get from backend
@@ -9,17 +10,32 @@ const displayAvailableSellers = (data, display) =>  (dispatchAction) => { // get
   });
 };
 
-const globalProductStoreInfo = (data) => dispatchAction =>{
-  // Post request
-  const {product, clickedSeller, sellers, display} = data ;
-  window.localStorage.setItem("globalProductStoreInfo", JSON.stringify(data));
-  dispatchAction({
-    type: canvas.GLOBAL_PRODUCT_CANVAS_SUCCESS,
-    payload: { product, display, clickedSeller}
-  })
+const selectedGlobalStoreItem = product => async dispatchAction =>{
+  
+  dispatchAction({type: canvas.GLOBAL_PRODUCT_CANVAS_REQUEST})
+  const response = await Axios.post("/global-products/selected", product._id);
+  console.log({productInfo: product, response})
+  try{
+    if(response.status === 200) {
+      window.localStorage.setItem("selectedGlobalStoreItem", JSON.stringify(response.data));
+      dispatchAction({
+        type: canvas.GLOBAL_PRODUCT_CANVAS_SUCCESS,
+        payload: {productInfo: product, availableSellers: response.data.products }
+      })
+    } else {
+      dispatchAction({
+        type: canvas.GLOBAL_PRODUCT_CANVAS_FAIL,
+        payload: {error: response.data.error}
+      })
+    }
+
+  }catch(error){
+    console.log(error)
+  }
+ 
 };
 
-
+ 
 
 const sidebarAction = (display) => (dispatchAction) => {
   dispatchAction({
@@ -42,4 +58,4 @@ const topMenuData = (data) => (dispatchAction) => {
   });
 };
 
-export { displayAvailableSellers, sidebarAction, sideMenuContentAction, topMenuData, globalProductStoreInfo };
+export { displayAvailableSellers, sidebarAction, sideMenuContentAction, topMenuData, selectedGlobalStoreItem };

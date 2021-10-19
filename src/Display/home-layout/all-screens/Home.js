@@ -8,6 +8,7 @@ import { AiFillEye } from "react-icons/ai";
 import { videos } from "../../../utilities";
 import { useDispatch } from "react-redux";
 import { clickedVideos } from "../../../redux/actions/video.actions";
+import MainLayout from "../MainLayout";
 
 
 const Home = () => {
@@ -18,7 +19,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <MainLayout>
       <SubHeader />
       <Container
       //  className={
@@ -57,7 +58,7 @@ const Home = () => {
           ))}
         </Row>
       </Container>
-    </>
+    </MainLayout>
   );
 };
 

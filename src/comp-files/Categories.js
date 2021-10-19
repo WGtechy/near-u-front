@@ -1,9 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getProductsBySlug } from "../redux/actions";
 import { sideMenuContentAction, sidebarAction } from "../redux/actions/canvas";
 
-const Categories = (props) => {
+const Categories = () => {
+  
 
   const selector = useSelector((state) => {
     return { 
@@ -15,10 +17,9 @@ const Categories = (props) => {
 
   const dispatch = useDispatch();
 
-  const switching = (test) => {
+  const switching = (item) => {
     if (selector.sidebar.display) dispatch(sidebarAction(false));
     if (selector.sideMenuContent) dispatch(sideMenuContentAction(false));
-
   };
 
   const renderCategories = (cat) => {
