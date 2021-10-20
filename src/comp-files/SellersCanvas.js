@@ -29,7 +29,7 @@ const SellersCanvas = ({ show, hide }) => {
     {
       name: "Basket",
       icon: IoIosBasket,
-      size: 30
+      size: 40
     },
     {
       name: "Quick pay",
@@ -110,7 +110,7 @@ const SellersCanvas = ({ show, hide }) => {
                     {icons.map((item, index) =>
                       <div key={index} className="icons" size={item.size}>
                       <item.icon />
-                        <span>{item.name}</span>
+                        <span>{item.name}</span> 
                       </div>
                     )}
                     </div>
