@@ -14,6 +14,7 @@ import {
   displayAvailableSellers,
   globalProductStoreInfo,
 } from "../redux/actions";
+import { generatePublicUrl } from "../utilities-config/urlConfig";
 import { ContentLoading, DataLoading } from "./hoc/Loading";
 
 const SellersCanvas = ({ show, hide }) => {
@@ -76,8 +77,12 @@ const SellersCanvas = ({ show, hide }) => {
             : sellers.data.map((item, index) => (
               <div className="contain__content" key={index}>
                   <div className="contain__content__profile">
-                    <img src="" alt="" />
-                    <span>seller name</span>
+                    <img  src={
+                  item.sellerId.image.length > 0
+                    ? generatePublicUrl( item.sellerId.image[0].img)
+                    : "/logo.png"
+                } alt={item.sellerId.username} />
+                    <span>{item.sellerId.username}</span>
                     <span className="contain__content__profile__information">
                       <IoIosInformationCircleOutline
                         className="icons icons__information"
@@ -87,9 +92,14 @@ const SellersCanvas = ({ show, hide }) => {
                   </div>
                   <div className="contain__content__product">
                     <div className="image__contain">
-                      <img src="" alt="" />
+                      <img src={
+                  item.sellerId.image.length > 0
+                    ? generatePublicUrl( item.sellerId.image[0].img)
+                    : "/logo.png"
+                } alt="" />
+                
                     </div>
-                    <span>Product name</span>
+                    <span>{item.productName}</span>
                     <div className="product__price">
                       <div>
                         <span className="currency">$</span>

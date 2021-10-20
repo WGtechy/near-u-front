@@ -12,7 +12,9 @@ const selectedGlobalStoreSeller = data => dispatchAction => {
 
 const selectedGlobalStoreItem = product => async dispatchAction =>{
   dispatchAction({type: canvas.GLOBAL_PRODUCT_CANVAS_REQUEST})
-  const response = await Axios.post("/global-products/selected", product._id);
+  console.log([product, product._id])
+  const {_id} = product;
+  const response = await Axios.post("/global-products/selected", product);
   console.log({response})
   try{
     if(response.status === 200) {
