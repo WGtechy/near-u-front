@@ -30,7 +30,7 @@ export const signIn = (user) => async (dispatchAction) => {
   } catch (error) {
    console.log(error)
   }
-};
+}; 
 
 export const isSignedIn = () => async (dispatchAction) => {
   const token = localStorage.getItem("token");// this will check the user timeout
